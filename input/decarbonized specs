@@ -1,0 +1,7 @@
+input["vcm"]["pem"]["capacity"] = 54.0 #54 MW pem electrolysis covers h2 demand when CAE is flexible
+input["cement"]["other"]["ccs"] = 16.0 #16 MW for ccs
+input["manganese"]["fe_mn"]["capacity"] = 38.0*1.1 #assume 10% increase
+input["manganese"]["si_mn"]["capacity"] = 32.0*1.1 #assume 10% increase
+input["ammonia"]["h2synthesis"]["h2_cap"] = 0.0
+input["ammonia"]["pem"]["capacity"] = 550.0 
+input["ammonia"]["nh3synthesis"]["cap_min"] = 0.6 
