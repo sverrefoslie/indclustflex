@@ -7,6 +7,7 @@ global_data:
     electricity: 49.0 # EUR/MWh 
     natural_gas: 52.0 # EUR/MWh 
     emissions: 164.0 #emission cost in EUR/ton 
+    hydrogen: 100.0 #EUR/MWh
     grid_deficit: 1.0e5 #grid deficit cost (EUR per MW per timestep)
   properties:
     ##general##
