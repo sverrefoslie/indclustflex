@@ -46,13 +46,11 @@ function nh_model(m, T::Integer, global_data::Dict, nh::Dict)
     
     @variable(m, 0 <= h_nh_syn[1:T])
     @variable(m, 0 <= g_nh_syn[1:T])
-    # @variable(m, 0 <= h_nh_syn_nom)
     
     @variable(m, 0 <= p_nh_nh[1:T])
     @variable(m, 0 <= ṁ_nh_nh_nh[1:T])
     @variable(m, 0 <= m_nh_nh_tot)
     @variable(m, 0 <= ṁ_h2_nh_nh[1:T])
-    # @variable(m, 0 <= ṁ_n2_nh_nh[1:T])
     @variable(m, 0 <= h_nh_nh[1:T])
     @variable(m, x_up_nh_nh[1:T], Bin)
     @variable(m, x_dn_nh_nh[1:T], Bin)

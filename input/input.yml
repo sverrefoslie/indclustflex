@@ -1,14 +1,12 @@
 T: 168   #timesteps (hours)
-# T0: 49 #start on hour 49 (monday)
 days: #calculated
 weeks: #calculated, number of started weeks
 
 global_data:
   prices:
-    electricity: 49.0 # EUR/MWh NVE langsiktig 2023 pris for 2040 Basis
-    natural_gas: 52.0 # EUR/MWh NVE langsiktig 2023 pris for 2040 HØY!
-    emissions: 164.0 #emission cost in EUR/ton , NVE langsiktig 2023 pris for 2040 HØY
-    hydrogen: 100.0 #hydrogen import market price
+    electricity: 49.0 # EUR/MWh 
+    natural_gas: 52.0 # EUR/MWh 
+    emissions: 164.0 #emission cost in EUR/ton 
     grid_deficit: 1.0e5 #grid deficit cost (EUR per MW per timestep)
   properties:
     ##general##
@@ -20,12 +18,12 @@ global_data:
     ##VCM##
     M_cl2: 70.9e-6   #ton/mol Cl2
     M_EDC: 98.96e-6  #ton/mol EDC
-    h_evap_EDC: 0.089 #320/3600 #kWh/kg = MWh/ton (320 kJ/kg https://cameochemicals.noaa.gov/chris/EDC.pdf)
+    h_evap_EDC: 0.089 #320 kJ/kg /3600 #kWh/kg = MWh/ton 
     M_VCM: 62.5e-6  #ton/mol VCM
     M_n: 14.01e-6 #ton/mol H
     M_h: 1.008e-6 #ton/mol H
   demand: 
-    file: "input/total_load_no1_2022.csv" 
+    file: 
     load: 
     limit_percent: 0.02 # top x% of hours (eg 2% hours with highest load)
     limit_load:   #demand in top x% hours
@@ -37,25 +35,19 @@ global_data:
     activation_time: 18 #time from optimization start to grid limitation
     duration: 1 #duration of grid limitation
     capacity: 1e3 #grid capacity during limitation
-    # recovery: 24 #hours after limitation (not in use)
-
-  wind:
-    file: "input/offshore_wind_2020.csv" 
-    capacity: 1400.0 #MW installed capacity
-    prod: #wind production
 
 
 standard_techs:
   pem: &default_pem
     capacity: 0.0 #38.88 #electrolyzer capacity (nominal power input MWh/h)
     efficiency: 0.66 #LHV_h2/θ_h2e #electrolyser efficiency 
-    η_h2e_power: 0.95 #power conversion efficiency Ref Magnus PhD
-    #θ_h2e: 50.4 #kWh/kg power demand per kg h2 at stack !!Ref NEL 
+    η_h2e_power: 0.95 #power conversion efficiency 
+    #θ_h2e: 50.4 #kWh/kg power demand per kg h2 at stack 
     Cmin_h2e: 0.1 #Minimum operation of electrolyzers (10%)
     p_h2e: 3.0 #pressure of produced hydrogen in MPa 
     ρ_h2e: PropsSI("D", "T", 298, "P", p_h2e*1e6, "Hydrogen") #Density of H2 from electrolyzer
   soec: &default_soec
-    efficiency: 0.88 #0.84/η_h2soec_power #electrolyser efficiency AC to LHV = 0.84(REF Sunfire SOEC https://www.sunfire.de/en/hydrogen)
+    efficiency: 0.88 #0.84/η_h2soec_power #electrolyser efficiency AC to LHV = 0.84
     capacity: 0.0 #22 #electrolyzer capacity (nominal power input MWh/h)
     θ_q_h2_soec: 0.23
     η_h2soec_power: 0.95 #power conversion efficiency Ref Magnus PhD
@@ -71,26 +63,24 @@ standard_techs:
 
 vcm: 
   cae:
-    θ_cae: 2.58     #MWh/ton Chlorine Ref: 10.1002/AIC.17480
+    θ_cae: 2.58     #MWh/ton Chlorine 
     P0_CAE: 98.8 #87.81     #Nominal CAE capacity in MWh/h
     Cmax_CAE: 1.05 #5 #Maximum overcapacity CAE
     Cmin_CAE: 0.66 #Minimum load CAE
-    c_LCC: 5000.0 #Load change cost (EUR/load change)  REF: 10.1021/acs.iecr.1c01360
-    δ_CAE: 3.6 #0.1/100*3600       #ramping constraint CAE(nominal change per hour (percent/100 of nominal load)) ref: 10.1016/j.compchemeng.2021.107287 (0.08 MW/s = 0.1% per second)
+    c_LCC: 5000.0 #Load change cost (EUR/load change)  
+    δ_CAE: 3.6 #0.1/100*3600  #ramping constraint CAE(nominal change per hour (percent/100 of nominal load)) 
   dc:
-    δ_DC: 1.2 #30/100*4 #ramping constraint DC(nominal change per hour, 30% per 15 min) Ref: 10.1021/acs.iecr.1c01360
-    #ṅ_cl2_DC0: (P0_CAE/θ_cae)/M_cl2 #nominal load of mole flow to DC (related to CAE nominal load)
-    #ṁ_EDC_DC0: ṅ_cl2_DC0*M_EDC #nominal mass flow of EDC (55.42 ton/h)
+    δ_DC: 1.2 #30/100*4 #ramping constraint DC(nominal change per hour, 30% per 15 min) 
     Cmax_DC: 1.05
     Cmin_DC: 0.75
   edc_stor:
-    capacity: 200.0 #tons equivalent to 3.61 hours of nominal operation, ref 10.1021/acs.iecr.1c01360 (hours*ṁ_EDC_DC0) #installed capacity of EDC storage in ton (hours of operation times hourly nominal production)
+    capacity: 200.0 #tons equivalent to 3.61 hours of nominal operation,
   cracker:
-    prod_rate: 67.5      #VCM production rate [ton/h] (Inovyn 540 000 ton/yr, 8000 hrs, norskeutslipp.no)
-    η_cr_g: 0.935   ##IF CHANGED, CHANGE theta_cr as well!### gas cracker efficiency: dos Santos, C. O. M., Botero, J. M., West, K. & Apeldoorn, T. Pathways to industrial decarbonisation in the Netherlands: paper & board and steam cracking. (2021).
-    η_cr_el: 0.985     #electric cracker efficiency: dos Santos, C. O. M., Botero, J. M., West, K. & Apeldoorn, T. Pathways to industrial decarbonisation in the Netherlands: paper & board and steam cracking. (2021).
-    θ_cr: 0.91 #(72.0 * LHV_ng)/1000*η_cr_g #MWh/ton VCM heating demand EDC cracking ref: https://pubs.acs.org/doi/10.1021/ie302436r
-  pem: {<<: *default_pem, capacity: 0.0} #20 MW elektrolysør i fremtidig scenario 
+    prod_rate: 67.5      #VCM production rate [ton/h] 
+    η_cr_g: 0.935   ##IF CHANGED, CHANGE theta_cr as well!### gas cracker efficiency
+    η_cr_el: 0.985     #electric cracker efficiency
+    θ_cr: 0.91 #(72.0 * LHV_ng)/1000*η_cr_g #MWh/ton VCM heating demand EDC cracking 
+  pem: {<<: *default_pem, capacity: 0.0} 
   soec: {<<: *default_soec, capacity: 0} 
   h2stor: {<<: *default_h2stor, capacity: 0}
   h2imp: false #Boolean determining whether hydrogen import is allowed (false means no import)
@@ -98,11 +88,11 @@ vcm:
 
 cement: 
   production:
-    cement_production:  #ton/h finished product calculated from kiln and fractions (max cap is 194, assume 5% overcapacity (Heidelberg data))
+    cement_production:  #ton/h finished product calculated from kiln and fractions 
     nominal_prod: #weekly nominal production
-    rawmeal_klinker_ratio: 1.56 #ton raw meal per ton clinker Ref https://www.sciencedirect.com/science/article/pii/S2451904920301177 (Heidelberg said 1.6)
-    klinker_fraction: 0.787 #Portland Cement II is 0.7 (ref 10.52202/069564-0237) (0.787 at Heidelberg) #klinker fraction in final product (rest is flyash etc) (Heidelberg 0.787. Seems this number varies between cement types 10.1016/J.JOULE.2021.04.011)
-    product_price: 150.0 #EUR/ton (e.g. https://businessanalytiq.com/procurementanalytics/index/cement-price-index/)
+    rawmeal_klinker_ratio: 1.56 #ton raw meal per ton clinker 
+    klinker_fraction: 0.787 #Portland Cement II is 0.7 #klinker fraction in final product (rest is flyash etc)
+    product_price: 150.0 #EUR/ton 
     c_LCC: 1.0e-5 #load change cost of one cycle
     c_dev: 1.0e-5 #cost of deviation from nominal operation of kiln
     c_dev_mach: 1000.0 #EUR/hr additional cost per hour of operating outside normal hours for crushers 
@@ -132,7 +122,7 @@ cement:
   kiln:
     mass_flow: 223.0 #ton/h 
     power_demand: 5.0 #MW
-    cap_min: 0.95 #minimum mass flow, assume 5% down, 5% up, https://ieeexplore.ieee.org/document/8648415
+    cap_min: 0.95 #minimum mass flow, assume 5% down, 5% up,
     cap_max: 1.05 #maximum mass flow
   storages:
     silo1:
@@ -174,23 +164,23 @@ ammonia:
     h2_cap: 345.0 # 345 required to produce 58.3 tonnh3/h
     cap_min: 0.8 #minimum 80% operation
     ramp: 1.0 #full ramping per hour
-    ch4_demand: 0.58 #nh3 MW to ch4 MW ratio 10.1016/j.apenergy.2019.114135 (0.61*61.7 - 1.8)/61.7 ref tab 5
+    ch4_demand: 0.58 #nh3 MW to ch4 MW ratio 
     ch4_h_demand: #h2 MW to ch4 MW ratio (calculated from the above * h2energydemand/nh3energydemand)
 
   asu:
-    power_demand: 0.008  #MW ASU / MW PEM  (10.1021/ACSSUSCHEMENG.7B02070)
+    power_demand: 0.008  #MW ASU / MW PEM 
 
   pem: {<<: *default_pem, capacity: 0.0} #25 MW electrolyzer i fremtidig scenario
   nh3synthesis:
-    power_demand: 0.64 #MWh/t ammonia  #8 MW for a 300t/day plant (10.1021/ACSSUSCHEMENG.7B02070) #40.0 #MW for compressors (40MW in Yara)
+    power_demand: 0.64 #MWh/t ammonia  
     cap_min: 0.6 #minimum 80% operation
-    nh_prod: 58.3 #ton NH3 per hour (Yara: 1400 ton/døgn = 58.3 ton/h)
-    ramp: 0.2 #(20%/h) 10.1016/j.ijhydene.2019.11.028
+    nh_prod: 58.3 #ton NH3 per hour
+    ramp: 0.2 #(20%/h) 
     h2_mass_demand: 
     n2_mass_demand: 
     h2_energy_demand: 
     nh3_energy_demand: 
-    product_price: 1000 #EUR/ton Twice the market price (around 500). Accounts for any non-meeting of contractual agreements https://www.google.com/search?q=price+ammonia&oq=price+ammonia&gs_lcrp=EgZjaHJvbWUyBggAEEUYQDIGCAEQRRg5MgYIAhAuGEDSAQg0MTAzajBqMagCALACAA&sourceid=chrome&ie=UTF-8#ip=1
+    product_price: 1000 #EUR/ton Twice the market price (around 500). 
     delay: 150 #minimum 150 hours between two load reductions/increases
     constant: 24 #minimum 24 hours constant operation before next load change
     change_duration: 5 #maximum 5 hours of consecutive load reductions or increases

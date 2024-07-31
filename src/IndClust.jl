@@ -12,7 +12,6 @@ include("vcm_model.jl")
 include("mn_model.jl")
 include("nh_model.jl")
 include("cem_model.jl")
-include("../output/plots.jl")
 include("../output/output.jl")
 
 println("Model loaded")

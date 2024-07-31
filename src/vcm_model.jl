@@ -85,24 +85,6 @@ function vcm_model(m, T::Integer, global_data::Dict, vcm::Dict)
     @variable(m, b_vcm_soec[1:T], Bin)
 
 
-    # ### Objective function ###
-
-
-    # @objective(m, Min, c_en_vcm + c_lc_vcm + c_em_vcm) # 
-
-
-    ### Constraints ###
-
-    ###Can be added in the input.yml file?
-
-    # ###decarbonized
-    # if decarbonized
-        # fix.(em_vcm[1:T], 0, force=true)
-    # end
-
-    # if pure_green
-    #     fix.(h_vcm_imp[1:T], 0, force=true)
-    # end
 
     if H2imp
     else
