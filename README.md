@@ -11,10 +11,11 @@ The main operations of utilizing the model is typically:
 
 ### 1: Running the `IndClust.jl` file
 ### 2: Reading the input data using read_data()
-### 3: Creating the model using create_model()
-### 4: Defining some grid or power capacity constraint, e.g. using grid_cap_calc()
-### 5: Optionally adding other constraints
-### 6: Running the model, and retrieving results
+### 3: Optionally modifying parameters or capacities in the input-dict
+### 4: Creating the model using create_model()
+### 5: Defining some grid or power capacity constraint, e.g. using grid_cap_calc()
+### 6: Optionally adding other constraints
+### 7: Running the model, and retrieving results
 
 ## Main files
 `IndClust.jl` is the main script, importing all other scripts used by the model. 
