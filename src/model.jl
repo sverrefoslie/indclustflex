@@ -61,8 +61,8 @@ function create_model(input::Dict=input)
 
 
     ### Other constraints
-    @constraint(m, [t=1:T], p_tot[t]  == m[:p_vcm][t] + m[:p_mn][t] + m[:p_nh][t] + m[:p_cem][t]) # total power equals total demand minus grid deficit
-    @constraint(m, [t=1:T], p_tot[t] - p_gd[t] <= grid_capacity[t] ) #testing for reduced load
+    @constraint(m, [t=1:T], p_tot[t]  == m[:p_vcm][t] + m[:p_mn][t] + m[:p_nh][t] + m[:p_cem][t]) 
+    @constraint(m, [t=1:T], p_tot[t] - p_gd[t] <= grid_capacity[t] )
     @constraint(m, [t=1:T], em_tot[t]  == m[:em_vcm][t] + m[:em_nh][t]) # emissions for the processes with alternative fuels
 
 

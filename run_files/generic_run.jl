@@ -1,8 +1,16 @@
 include("../src/IndClust.jl")
 
 input=read_data("input/input.yml") #reads the yaml input-file to a dict
+
+####For a single grid capacity reduction
 input=grid_cap_calc(input, 1, 100, 48) #Calculating a grid capacity. In this case, a 1 hour capacity restriction at 100 MW, starting 48 hours after the first timestep
-# input = grid_cap_calc(input, "input/final4weeks_2022_grenland.csv", 2200) #Alternative grid capacity restriction, using the specified file as a load profile, and the number as the available grid capacity
+#####
+
+####For a capacity limitation based on a grid-limitation with case specific generation and demand profiles
+# m_base=create_model(input)
+# optimize!(m_base)
+# input=load_calc(input, m_base, "input/load_data.csv", 2200)
+####
 
 
 ## If the decarbonized specs are to be used:

@@ -36,17 +36,7 @@ After running this file, the modules for reading input, the main model and the d
 
 If you find `IndClustFlex` useful in your work, we kindly request that you cite the following [publication](https://doi.org/0000/000):
 
-<!-- ```bibtex
-@article{hellemo2024energymodelsx,
-  title={EnergyModelsX: Flexible Energy Systems Modelling with Multiple Dispatch},
-  author={Hellemo, Lars and B{\o}dal, Espen Flo and Holm, Sigmund Eggen and Pinel, Dimitri and Straus, Julian},
-  journal={Journal of Open Source Software},
-  volume={9},
-  number={97},
-  pages={6619},
-  year={2024}
-}
-``` -->
+XXX
 
 For earlier work, see our [paper in Advances in Applied Energy](https://www.sciencedirect.com/science/article/pii/S2666792423000318):
 
