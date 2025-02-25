@@ -34,9 +34,22 @@ After running this file, the modules for reading input, the main model and the d
 
 ## Cite
 
-If you find `IndClustFlex` useful in your work, we kindly request that you cite the following [publication](https://doi.org/0000/000):
+If you find `IndClustFlex` useful in your work, we kindly request that you cite our [paper in Energy & Environmental Science](https://doi.org/10.1039/D4EE03888F):
 
-XXX
+```bibtex
+@article{foslie_faster_2024,
+	title = {Faster decarbonization of heavy industries in low-carbon power grids: using process flexibility for handling grid congestions},
+	author = {Foslie, Sverre Stefanussen and Knudsen, Brage Rugstad and Bjarghov, Sigurd and Korpås, Magnus},
+	year = {2024},
+	journal = {Energy & Environmental Science},
+    volume={17},
+issue={22}
+	pages = {8838-8854},
+	doi = {10.1039/D4EE03888F},
+}
+```
+
+
 
 For earlier work, see our [paper in Advances in Applied Energy](https://www.sciencedirect.com/science/article/pii/S2666792423000318):
 
